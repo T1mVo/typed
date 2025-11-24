@@ -1,0 +1,602 @@
+use serde::{Deserialize, Serialize};
+use thiserror::Error;
+
+use crate::{Angle, Center, FromBytes, Ratio, Stop};
+
+/// Represents different types of gradients with specific parameters for each type.
+///
+/// # Examples
+/// ```
+/// use typed::{Angle, Center, ColorSpace, Gradient, Ratio, Stop};
+///
+/// let linear_gradient = Gradient::linear(vec![], Angle::new(45.0), ColorSpace::Oklab);
+/// ```
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(
+    tag = "typed-type",
+    rename_all = "kebab-case",
+    rename_all_fields = "kebab-case"
+)]
+pub enum Gradient {
+    Linear {
+        stops: Vec<Stop>,
+        angle: Angle,
+        space: ColorSpace,
+    },
+    Radial {
+        stops: Vec<Stop>,
+        center: Center,
+        radius: Ratio,
+        focal_center: Center,
+        focal_radius: Ratio,
+        space: ColorSpace,
+    },
+    Conic {
+        stops: Vec<Stop>,
+        angle: Angle,
+        center: Center,
+        space: ColorSpace,
+    },
+}
+
+impl Gradient {
+    /// Creates a new linear gradient with the specified stops, angle, and color space.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Angle, ColorSpace, Gradient, Stop};
+    ///
+    /// let gradient = Gradient::linear(vec![], Angle::new(45.0), ColorSpace::Oklab);
+    /// ```
+    pub const fn linear(stops: Vec<Stop>, angle: Angle, space: ColorSpace) -> Self {
+        Self::Linear {
+            stops,
+            angle,
+            space,
+        }
+    }
+
+    /// Returns a builder for creating a linear gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder = Gradient::linear_builder();
+    /// ```
+    pub fn linear_builder() -> LinearGradientBuilder {
+        LinearGradientBuilder {
+            stops: vec![],
+            angle: None,
+            space: ColorSpace::default(),
+        }
+    }
+
+    /// Creates a new radial gradient using specified stops, centers, radii, and color space.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Center, ColorSpace, Gradient, Ratio, Stop};
+    ///
+    /// let gradient = Gradient::radial(
+    ///     vec![],
+    ///     Center::new(0.5, 0.5),
+    ///     Ratio::new(1.0),
+    ///     Center::new(0.5, 0.5),
+    ///     Ratio::new(0.5),
+    ///     ColorSpace::Oklab,
+    /// );
+    /// ```
+    pub const fn radial(
+        stops: Vec<Stop>,
+        center: Center,
+        radius: Ratio,
+        focal_center: Center,
+        focal_radius: Ratio,
+        space: ColorSpace,
+    ) -> Self {
+        Self::Radial {
+            stops,
+            center,
+            radius,
+            focal_center,
+            focal_radius,
+            space,
+        }
+    }
+
+    /// Returns a builder for creating a radial gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder = Gradient::radial_builder();
+    /// ```
+    pub fn radial_builder() -> RadialGradientBuilder {
+        RadialGradientBuilder {
+            stops: vec![],
+            center: None,
+            radius: None,
+            focal_center: None,
+            focal_radius: None,
+            space: ColorSpace::default(),
+        }
+    }
+
+    /// Creates a new conic gradient using specified stops, an angle, a center, and a color space.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Angle, Center, ColorSpace, Gradient, Stop};
+    ///
+    /// let gradient = Gradient::conic(
+    ///     vec![],
+    ///     Angle::new(45.0),
+    ///     Center::new(Ratio::new(0.5), Ratio::new(0.5)),
+    ///     ColorSpace::Oklab,
+    /// );
+    /// ```
+    pub const fn conic(stops: Vec<Stop>, angle: Angle, center: Center, space: ColorSpace) -> Self {
+        Self::Conic {
+            stops,
+            angle,
+            center,
+            space,
+        }
+    }
+
+    /// Returns a builder for creating a conic gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Center, Gradient, Ratio};
+    ///
+    /// let builder = Gradient::conic_builder();
+    /// ```
+    pub fn conic_builder() -> ConicGradientBuilder {
+        ConicGradientBuilder {
+            stops: vec![],
+            angle: None,
+            center: None,
+            space: ColorSpace::default(),
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Clone, Default, Debug)]
+#[serde(rename_all = "kebab-case")]
+pub enum ColorSpace {
+    Luma,
+    #[default]
+    Oklab,
+    Oklch,
+    LinearRgb,
+    Rgb,
+    Cmyk,
+    Hsl,
+    Hsv,
+}
+
+/// A builder for creating linear gradients.
+///
+/// # Examples
+/// ```
+/// use typed::{Angle, ColorSpace, LinearGradientBuilder, Stop};
+///
+/// let gradient = LinearGradientBuilder::default()
+///     .stops(vec![])
+///     .angle(Angle::new(45.0))
+///     .build()
+///     .unwrap();
+/// ```
+pub struct LinearGradientBuilder {
+    stops: Vec<Stop>,
+    angle: Option<Angle>,
+    space: ColorSpace,
+}
+
+impl LinearGradientBuilder {
+    /// Sets the stops for the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{LinearGradientBuilder, Stop};
+    ///
+    /// let builder = LinearGradientBuilder::default().stops(vec![]);
+    /// ```
+    pub fn stops(mut self, stops: Vec<Stop>) -> Self {
+        self.stops = stops;
+
+        self
+    }
+
+    /// Adds a single stop to the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{LinearGradientBuilder, Stop};
+    ///
+    /// let builder = LinearGradientBuilder::default().stop(Stop::new(0.0, 0.0));
+    /// ```
+    pub fn stop(mut self, stop: Stop) -> Self {
+        self.stops.push(stop);
+
+        self
+    }
+
+    /// Sets the angle for the linear gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder = Gradient::linear_builder().angle(Angle::new(45.0));
+    /// ```
+    pub const fn angle(mut self, angle: Angle) -> Self {
+        self.angle = Some(angle);
+
+        self
+    }
+
+    /// Sets the color space for the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder = Gradient::linear_builder().space(ColorSpace::Rgb);
+    /// ```
+    pub const fn space(mut self, space: ColorSpace) -> Self {
+        self.space = space;
+
+        self
+    }
+
+    /// Builds the linear gradient.
+    ///
+    /// # Errors
+    /// Returns a `GradientBuilderError` if required fields are missing.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Angle, LinearGradientBuilder, Stop};
+    ///
+    /// let gradient = LinearGradientBuilder::default()
+    ///     .stops(vec![])
+    ///     .angle(Angle::new(45.0))
+    ///     .build()
+    ///     .unwrap();
+    /// ```
+    pub fn build(self) -> Result<Gradient, GradientBuilderError> {
+        let stops = if self.stops.len() >= 2 {
+            self.stops
+        } else {
+            return Err(GradientBuilderError::MissingField("stops"));
+        };
+
+        let Some(angle) = self.angle else {
+            return Err(GradientBuilderError::MissingField("angle"));
+        };
+
+        Ok(Gradient::linear(stops, angle, self.space))
+    }
+}
+
+/// A builder for creating radial gradients.
+///
+/// # Examples
+/// ```
+/// use typed::{Center, RadialGradientBuilder, Ratio, Stop};
+///
+/// let gradient = RadialGradientBuilder::default()
+///     .stops(vec![])
+///     .center(Center::new(0.5, 0.5))
+///     .radius(Ratio::new(1.0))
+///     .focal_center(Center::new(0.5, 0.5))
+///     .focal_radius(Ratio::new(0.5))
+///     .build()
+///     .unwrap();
+/// ```
+pub struct RadialGradientBuilder {
+    stops: Vec<Stop>,
+    center: Option<Center>,
+    radius: Option<Ratio>,
+    focal_center: Option<Center>,
+    focal_radius: Option<Ratio>,
+    space: ColorSpace,
+}
+
+impl RadialGradientBuilder {
+    /// Sets the stops for the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{RadialGradientBuilder, Stop};
+    ///
+    /// let builder = RadialGradientBuilder::default().stops(vec![]);
+    /// ```
+    pub fn stops(mut self, stops: Vec<Stop>) -> Self {
+        self.stops = stops;
+
+        self
+    }
+
+    /// Adds a single stop to the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{RadialGradientBuilder, Stop};
+    ///
+    /// let builder = RadialGradientBuilder::default().stop(Stop::new(0.0, 0.0));
+    /// ```
+    pub fn stop(mut self, stop: Stop) -> Self {
+        self.stops.push(stop);
+
+        self
+    }
+
+    /// Sets the center point for the radial gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder = Gradient::radial_builder().center(Center::new(Ratio::new(0.5), Ratio::new(0.5)));
+    /// ```
+    pub const fn center(mut self, center: Center) -> Self {
+        self.center = Some(center);
+
+        self
+    }
+
+    /// Sets the radius for the radial gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder = Gradient::radial_builder().radius(Ratio::new(1.0));
+    /// ```
+    pub const fn radius(mut self, radius: Ratio) -> Self {
+        self.radius = Some(radius);
+
+        self
+    }
+
+    /// Sets the focal center for the radial gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder =
+    ///     Gradient::radial_builder().focal_center(Center::new(Ratio::new(0.5), Ratio::new(0.5)));
+    /// ```
+    pub const fn focal_center(mut self, focal_center: Center) -> Self {
+        self.focal_center = Some(focal_center);
+
+        self
+    }
+
+    /// Sets the focal radius for the radial gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder = Gradient::radial_builder().focal_radius(Ratio::new(0.5));
+    /// ```
+    pub const fn focal_radius(mut self, focal_radius: Ratio) -> Self {
+        self.focal_radius = Some(focal_radius);
+
+        self
+    }
+
+    /// Sets the color space for the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::Gradient;
+    ///
+    /// let builder = Gradient::radial_builder().space(ColorSpace::Rgb);
+    /// ```
+    pub const fn space(mut self, space: ColorSpace) -> Self {
+        self.space = space;
+
+        self
+    }
+
+    /// Builds the radial gradient.
+    ///
+    /// # Errors
+    /// Returns a `GradientBuilderError` if required fields are missing.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Center, RadialGradientBuilder, Ratio, Stop};
+    ///
+    /// let gradient = RadialGradientBuilder::default()
+    ///     .stops(vec![])
+    ///     .center(Center::new(0.5, 0.5))
+    ///     .radius(Ratio::new(1.0))
+    ///     .focal_center(Center::new(0.5, 0.5))
+    ///     .focal_radius(Ratio::new(0.5))
+    ///     .build()
+    ///     .unwrap();
+    /// ```
+    pub fn build(self) -> Result<Gradient, GradientBuilderError> {
+        let stops = if self.stops.len() >= 2 {
+            self.stops
+        } else {
+            return Err(GradientBuilderError::MissingField("stops"));
+        };
+
+        let Some(center) = self.center else {
+            return Err(GradientBuilderError::MissingField("center"));
+        };
+
+        let Some(radius) = self.radius else {
+            return Err(GradientBuilderError::MissingField("radius"));
+        };
+
+        let Some(focal_center) = self.focal_center else {
+            return Err(GradientBuilderError::MissingField("focal_center"));
+        };
+
+        let Some(focal_radius) = self.focal_radius else {
+            return Err(GradientBuilderError::MissingField("focal_radius"));
+        };
+
+        Ok(Gradient::radial(
+            stops,
+            center,
+            radius,
+            focal_center,
+            focal_radius,
+            self.space,
+        ))
+    }
+}
+
+/// A builder for creating conic gradients.
+///
+/// # Examples
+/// ```
+/// use typed::{Angle, Center, Gradient, Ratio, Stop, color};
+///
+/// let gradient = Gradient::conic_builder()
+///     .stops(vec![
+///         Stop::new(color::BLACK, Ratio::new(0.0)),
+///         Stop::new(color::WHITE, Ratio::new(0.0)),
+///     ])
+///     .angle(Angle::new(45.0))
+///     .center(Center::new(Ratio::new(0.5), Ratio::new(0.5)))
+///     .build()
+///     .unwrap();
+/// ```
+pub struct ConicGradientBuilder {
+    stops: Vec<Stop>,
+    angle: Option<Angle>,
+    center: Option<Center>,
+    space: ColorSpace,
+}
+
+impl ConicGradientBuilder {
+    /// Sets the stops for the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{ConicGradientBuilder, Stop};
+    ///
+    /// let builder = ConicGradientBuilder::default().stops(vec![]);
+    /// ```
+    pub fn stops(mut self, stops: Vec<Stop>) -> Self {
+        self.stops = stops;
+
+        self
+    }
+
+    /// Adds a single stop to the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{ConicGradientBuilder, Ratio, Stop};
+    ///
+    /// let builder = ConicGradientBuilder::default().stop(Stop::new(Ratio::new(0.0), Ratio::new(0.0)));
+    /// ```
+    pub fn stop(mut self, stop: Stop) -> Self {
+        self.stops.push(stop);
+
+        self
+    }
+
+    /// Sets the angle for the conic gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Angle, Gradient};
+    ///
+    /// let builder = Gradient::conic_builder().angle(Angle::new(45.0));
+    /// ```
+    pub const fn angle(mut self, angle: Angle) -> Self {
+        self.angle = Some(angle);
+
+        self
+    }
+
+    /// Sets the center point for the conic gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Center, Gradient, Ratio};
+    ///
+    /// let builder = Gradient::conic_builder().center(Center::new(Ratio::new(0.5), Ratio::new(0.5)));
+    /// ```
+    pub const fn center(mut self, center: Center) -> Self {
+        self.center = Some(center);
+
+        self
+    }
+
+    /// Sets the color space for the gradient.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{ColorSpace, Gradient};
+    ///
+    /// let builder = Gradient::conic_builder().space(ColorSpace::Rgb);
+    /// ```
+    pub const fn space(mut self, space: ColorSpace) -> Self {
+        self.space = space;
+
+        self
+    }
+
+    /// Builds the conic gradient.
+    ///
+    /// # Errors
+    /// Returns a `GradientBuilderError` if required fields are missing.
+    ///
+    /// # Examples
+    /// ```
+    /// use typed::{Angle, Center, ConicGradientBuilder, Stop};
+    ///
+    /// let gradient = ConicGradientBuilder::default()
+    ///     .stops(vec![])
+    ///     .angle(Angle::new(45.0))
+    ///     .center(Center::new(0.5, 0.5))
+    ///     .build()
+    ///     .unwrap();
+    /// ```
+    pub fn build(self) -> Result<Gradient, GradientBuilderError> {
+        let stops = if self.stops.len() >= 2 {
+            self.stops
+        } else {
+            return Err(GradientBuilderError::MissingField("stops"));
+        };
+
+        let Some(angle) = self.angle else {
+            return Err(GradientBuilderError::MissingField("angle"));
+        };
+
+        let Some(center) = self.center else {
+            return Err(GradientBuilderError::MissingField("center"));
+        };
+
+        Ok(Gradient::conic(stops, angle, center, self.space))
+    }
+}
+
+/// Represents errors that can occur while building a gradient.
+#[derive(Error, Debug)]
+pub enum GradientBuilderError {
+    #[error("builder missing required field: {0}")]
+    MissingField(&'static str),
+}
+
+impl FromBytes for Gradient {
+    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
+        ciborium::from_reader(bytes).map_err(|err| err.to_string())
+    }
+}
