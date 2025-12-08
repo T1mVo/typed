@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{Color, FromBytes, Ratio};
+use crate::{Color, Ratio};
 
 /// A structure representing a color stop in a gradient with a specified color and offset.
 #[derive(Serialize, Deserialize, Debug)]
@@ -26,11 +26,5 @@ impl Stop {
     /// ```
     pub const fn new(color: Color, offset: Ratio) -> Self {
         Self { color, offset }
-    }
-}
-
-impl FromBytes for Stop {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }

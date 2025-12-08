@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::FromBytes;
-
 const TYPE_NAME: &str = "datetime";
 
 /// A struct representing a date and time with optional fields.
@@ -232,11 +230,5 @@ impl TryFrom<DateTimeCbor> for DateTime {
             minute: value.minute,
             second: value.second,
         })
-    }
-}
-
-impl FromBytes for DateTime {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }

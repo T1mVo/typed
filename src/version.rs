@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::FromBytes;
-
 const TYPE_NAME: &str = "version";
 
 /// A structure representing version with 5 components.
@@ -71,11 +69,5 @@ impl TryFrom<VersionCbor> for Version {
             value.revision,
             value.build,
         ))
-    }
-}
-
-impl FromBytes for Version {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }

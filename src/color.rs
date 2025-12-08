@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{Angle, FromBytes, Gradient, Ratio};
+use crate::{Angle, Gradient, Ratio};
 
 pub const BLACK: Color = Color::Luma(Luma::new(Ratio::new(0.0), Ratio::new(1.0)));
 pub const GRAY: Color = Color::Luma(Luma::new(Ratio::new(170.0 / 255.0), Ratio::new(1.0)));
@@ -403,12 +403,6 @@ pub enum Color {
     Hsv(Hsv),
 }
 
-impl FromBytes for Color {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
-    }
-}
-
 // Conversions from structs to Color enum
 impl From<Luma> for Color {
     fn from(luma: Luma) -> Self {
@@ -466,10 +460,4 @@ pub enum ColorGradient {
     Color(Color),
     /// A gradient of colors.
     Gradient(Gradient),
-}
-
-impl FromBytes for ColorGradient {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
-    }
 }

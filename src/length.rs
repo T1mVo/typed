@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{FromBytes, Radius};
+use crate::Radius;
 
 const TYPE_NAME: &str = "length";
 
@@ -130,12 +130,6 @@ impl TryFrom<LengthCbor> for Length {
     }
 }
 
-impl FromBytes for Length {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
-    }
-}
-
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 /// An enum representing either a `Length` or a `Radius`.
@@ -150,10 +144,4 @@ impl FromBytes for Length {
 pub enum LengthRadius {
     Length(Length),
     Radius(Radius),
-}
-
-impl FromBytes for LengthRadius {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
-    }
 }

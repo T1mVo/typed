@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{FromBytes, Ratio};
+use crate::Ratio;
 
 /// A structure representing the center of a gradient, defined by x and y ratios.
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
@@ -28,11 +28,5 @@ impl Center {
     /// ```
     pub const fn new(x: Ratio, y: Ratio) -> Self {
         Self { x, y }
-    }
-}
-
-impl FromBytes for Center {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }

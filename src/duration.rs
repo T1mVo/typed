@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::FromBytes;
-
 const TYPE_NAME: &str = "duration";
 const SECONDS_IN_MINUTE: f64 = 60.0;
 const MINUTES_IN_HOUR: f64 = 60.0;
@@ -281,12 +279,6 @@ impl TryFrom<DurationCbor> for Duration {
         Ok(Self {
             seconds: value.seconds,
         })
-    }
-}
-
-impl FromBytes for Duration {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }
 

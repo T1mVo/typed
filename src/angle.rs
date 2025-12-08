@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::FromBytes;
-
 const TYPE_NAME: &str = "angle";
 
 /// A structure representing an angle in radians.
@@ -89,11 +87,5 @@ impl TryFrom<AngleCbor> for Angle {
         }
 
         Ok(Self::new(value.radians))
-    }
-}
-
-impl FromBytes for Angle {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }

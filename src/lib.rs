@@ -9,6 +9,7 @@ pub use gradient::{
 pub use length::{Length, LengthRadius};
 pub use radius::Radius;
 pub use ratio::Ratio;
+use serde::de::DeserializeOwned;
 pub use stop::Stop;
 pub use r#type::Type;
 pub use version::Version;
@@ -43,7 +44,7 @@ mod version;
 ///     }
 /// }
 /// ```
-pub trait FromBytes: Sized {
+pub trait FromBytes: Sized + DeserializeOwned {
     /// Deserializes an instance of a type implementing this trait from a byte slice.
     ///
     /// # Arguments
@@ -53,5 +54,9 @@ pub trait FromBytes: Sized {
     /// # Returns
     ///
     /// Returns an instance of the type on success or a string error message on failure.
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String>;
+    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
+        ciborium::from_reader(bytes).map_err(|err| err.to_string())
+    }
 }
+
+impl<T: DeserializeOwned> FromBytes for T {}

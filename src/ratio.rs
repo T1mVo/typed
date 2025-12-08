@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::FromBytes;
-
 const TYPE_NAME: &str = "ratio";
 
 /// A structure representing a ratio from 0 to 1.
@@ -71,12 +69,6 @@ impl TryFrom<RatioCbor> for Ratio {
         }
 
         Ok(Self::new(value.ratio))
-    }
-}
-
-impl FromBytes for Ratio {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }
 

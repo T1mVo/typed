@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{FromBytes, length::Length};
+use crate::length::Length;
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(from = "RadiusCbor", into = "RadiusCbor", rename_all = "kebab-case")]
@@ -175,11 +175,5 @@ impl From<RadiusCbor> for Radius {
                 .or(value.bottom)
                 .or(value.rest),
         )
-    }
-}
-
-impl FromBytes for Radius {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }

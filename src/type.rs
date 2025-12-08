@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::FromBytes;
-
 const TYPE_NAME: &str = "type";
 
 /// A structure representing a type defined by a string.
@@ -56,11 +54,5 @@ impl TryFrom<TypeCbor> for Type {
         }
 
         Ok(Self::new(value.ty))
-    }
-}
-
-impl FromBytes for Type {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
     }
 }

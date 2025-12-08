@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
-use crate::{Angle, Center, FromBytes, Ratio, Stop};
+use crate::{Angle, Center, Ratio, Stop};
 
 /// Represents different types of gradients with specific parameters for each type.
 ///
@@ -593,10 +593,4 @@ impl ConicGradientBuilder {
 pub enum GradientBuilderError {
     #[error("builder missing required field: {0}")]
     MissingField(&'static str),
-}
-
-impl FromBytes for Gradient {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
-    }
 }
