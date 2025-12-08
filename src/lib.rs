@@ -32,17 +32,6 @@ mod version;
 /// This trait is used by data structures such as `Gradient`, `Stop`, and `Center`
 /// to provide a way to reconstruct instances from a series of bytes, often serialized
 /// data.
-///
-/// # Example
-///
-/// Implementing `FromBytes` for a custom type:
-///
-/// ```rust
-/// impl FromBytes for MyType {
-///     fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-///         // Implementation details...
-///     }
-/// }
 /// ```
 pub trait FromBytes: Sized + DeserializeOwned {
     /// Deserializes an instance of a type implementing this trait from a byte slice.

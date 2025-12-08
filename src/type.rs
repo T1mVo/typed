@@ -19,8 +19,10 @@ impl Type {
     /// # Examples
     ///
     /// ```
+    /// use typed::Type;
+    ///
     /// let custom_type = Type::new(String::from("CustomType"));
-    /// assert_eq!(custom_type.r#type, "CustomType");
+    /// assert_eq!(custom_type.ty, "CustomType");
     /// ```
     pub const fn new(ty: String) -> Self {
         Self { ty }

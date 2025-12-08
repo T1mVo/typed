@@ -20,9 +20,11 @@ impl Stop {
     /// # Examples
     ///
     /// ```
-    /// let stop = Stop::new(Color::red(), Ratio::from(0.5));
-    /// assert_eq!(stop.color, Color::red());
-    /// assert_eq!(stop.offset, Ratio::from(0.5));
+    /// use typed::{Ratio, Stop, color};
+    ///
+    /// let stop = Stop::new(color::BLACK, Ratio::new(0.5));
+    /// assert_eq!(stop.color, color::BLACK);
+    /// assert_eq!(stop.offset, Ratio::new(0.5));
     /// ```
     pub const fn new(color: Color, offset: Ratio) -> Self {
         Self { color, offset }

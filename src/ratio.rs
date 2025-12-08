@@ -19,6 +19,8 @@ impl Ratio {
     /// # Examples
     ///
     /// ```
+    /// use typed::Ratio;
+    ///
     /// let ratio = Ratio::new(0.5);
     /// assert_eq!(ratio.ratio, 0.5);
     /// ```
@@ -31,6 +33,8 @@ impl Ratio {
     /// # Examples
     ///
     /// ```
+    /// use typed::Ratio;
+    ///
     /// let ratio = Ratio::new(0.75);
     /// assert_eq!(ratio.to_percentage(), "75%");
     /// ```
