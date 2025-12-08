@@ -35,7 +35,7 @@ fn custom_fn(arg: &[u8]) -> Result<(), String> {
 **Typst:**
 
 ```typ
-#import "@preview/typed:0.1.0
+#import "@preview/typed:0.1.0"
 
 #let custom-plugin = plugin("custom_plugin.wasm")
 
