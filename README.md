@@ -1,6 +1,6 @@
 # typed
 
-A extended CBOR encoder for the [Typst](https://typst.app/) plugin system.
+An extended CBOR encoder for the [Typst](https://typst.app/) plugin system.
 
 This library provides a CBOR encoder with extended [support](#supported-types) for Typst types, along with corresponding Rust types and deserialization, enabling seamless data exchange between Typst and Rust WASM plugins.
 
