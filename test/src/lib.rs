@@ -2,7 +2,7 @@
 
 use serde::Deserialize;
 use typed::{
-    Angle, Center, Color, ColorGradient, DateTime, Duration, FromBytes, Gradient, Length,
+    Angle, Center, Color, ColorGradient, DateTime, Duration, FromBytes as _, Gradient, Length,
     LengthRadius, Radius, Ratio, Stop, Type, Version,
 };
 use wasm_minimal_protocol::*;
@@ -29,16 +29,9 @@ struct Test {
     version: Version,
 }
 
-impl FromBytes for Test {
-    fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
-        ciborium::from_reader(bytes).map_err(|err| err.to_string())
-    }
-}
-
 #[wasm_func]
 fn test(arg: &[u8]) -> Result<Vec<u8>, String> {
     let test = Test::from_bytes(arg)?;
-    //let test: ciborium::Value = ciborium::from_reader(arg).unwrap();
-
+    
     Ok(format!("{:?}", test).as_bytes().to_vec())
 }
