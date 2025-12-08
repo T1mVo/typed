@@ -75,11 +75,16 @@ fn custom_fn(arg: &[u8]) -> Result<(), String> {
  - [ ] relative
  - [ ] decimal
 
-## TODO
+## Missing features
+
+- Color conversion
+- Value type
+- Decoding
+- Static Gradient defaults
+- Support all types
+
+# TODO
 
 - name enum variants "gradient-linear"?
 - use ecostring?
-- add color consts
-- add color conversion
-- add gradient consts/statics
-- add value type
+- check content encoding
