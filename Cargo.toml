@@ -4,11 +4,11 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.85"
 authors = ["Tim Voßhenrich"]
-description = ""
+description = "Rust types for the Typst plugin system."
 readme = "README.md"
 repository = "https://github.com/T1mVo/typed"
 license = "MIT OR APACHE-2.0"
-keywords = ["typst", "typing", "wasm"]
+keywords = ["typst", "typing", "wasm", "plugin"]
 categories = ["data-structures", "encoding", "wasm"]
 
 [dependencies]
