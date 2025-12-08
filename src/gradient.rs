@@ -80,9 +80,9 @@ impl Gradient {
     ///
     /// let gradient = Gradient::radial(
     ///     vec![],
-    ///     Center::new(0.5, 0.5),
+    ///     Center::new(Ratio::new(0.5), Ratio::new(0.5)),
     ///     Ratio::new(1.0),
-    ///     Center::new(0.5, 0.5),
+    ///     Center::new(Ratio::new(0.5), Ratio::new(0.5)),
     ///     Ratio::new(0.5),
     ///     ColorSpace::Oklab,
     /// );
@@ -128,7 +128,7 @@ impl Gradient {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, Center, ColorSpace, Gradient, Stop};
+    /// use typed::{Angle, Center, ColorSpace, Gradient, Ratio, Stop};
     ///
     /// let gradient = Gradient::conic(
     ///     vec![],
@@ -182,10 +182,13 @@ pub enum ColorSpace {
 ///
 /// # Examples
 /// ```
-/// use typed::{Angle, ColorSpace, LinearGradientBuilder, Stop};
+/// use typed::{Angle, ColorSpace, Gradient, Ratio, Stop, color};
 ///
-/// let gradient = LinearGradientBuilder::default()
-///     .stops(vec![])
+/// let gradient = Gradient::linear_builder()
+///     .stops(vec![
+///         Stop::new(color::BLACK, Ratio::new(0.0)),
+///         Stop::new(color::WHITE, Ratio::new(1.0)),
+///     ])
 ///     .angle(Angle::new(45.0))
 ///     .build()
 ///     .unwrap();
@@ -201,9 +204,9 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{LinearGradientBuilder, Stop};
+    /// use typed::{Gradient, Stop};
     ///
-    /// let builder = LinearGradientBuilder::default().stops(vec![]);
+    /// let builder = Gradient::linear_builder().stops(vec![]);
     /// ```
     pub fn stops(mut self, stops: Vec<Stop>) -> Self {
         self.stops = stops;
@@ -215,9 +218,9 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{LinearGradientBuilder, Stop};
+    /// use typed::{Gradient, Ratio, Stop, color};
     ///
-    /// let builder = LinearGradientBuilder::default().stop(Stop::new(0.0, 0.0));
+    /// let builder = Gradient::linear_builder().stop(Stop::new(color::BLACK, Ratio::new(0.0)));
     /// ```
     pub fn stop(mut self, stop: Stop) -> Self {
         self.stops.push(stop);
@@ -229,7 +232,7 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typed::{Angle, Gradient};
     ///
     /// let builder = Gradient::linear_builder().angle(Angle::new(45.0));
     /// ```
@@ -243,7 +246,7 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typed::{ColorSpace, Gradient};
     ///
     /// let builder = Gradient::linear_builder().space(ColorSpace::Rgb);
     /// ```
@@ -260,10 +263,13 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, LinearGradientBuilder, Stop};
+    /// use typed::{Angle, Gradient, Ratio, Stop, color};
     ///
-    /// let gradient = LinearGradientBuilder::default()
-    ///     .stops(vec![])
+    /// let gradient = Gradient::linear_builder()
+    ///     .stops(vec![
+    ///         Stop::new(color::BLACK, Ratio::new(0.0)),
+    ///         Stop::new(color::WHITE, Ratio::new(1.0)),
+    ///     ])
     ///     .angle(Angle::new(45.0))
     ///     .build()
     ///     .unwrap();
@@ -287,13 +293,16 @@ impl LinearGradientBuilder {
 ///
 /// # Examples
 /// ```
-/// use typed::{Center, RadialGradientBuilder, Ratio, Stop};
+/// use typed::{Center, Gradient, Ratio, Stop, color};
 ///
-/// let gradient = RadialGradientBuilder::default()
-///     .stops(vec![])
-///     .center(Center::new(0.5, 0.5))
+/// let gradient = Gradient::radial_builder()
+///     .stops(vec![
+///         Stop::new(color::BLACK, Ratio::new(0.0)),
+///         Stop::new(color::WHITE, Ratio::new(1.0)),
+///     ])
+///     .center(Center::new(Ratio::new(0.5), Ratio::new(0.5)))
 ///     .radius(Ratio::new(1.0))
-///     .focal_center(Center::new(0.5, 0.5))
+///     .focal_center(Center::new(Ratio::new(0.5), Ratio::new(0.5)))
 ///     .focal_radius(Ratio::new(0.5))
 ///     .build()
 ///     .unwrap();
@@ -312,9 +321,9 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{RadialGradientBuilder, Stop};
+    /// use typed::{Gradient, Stop};
     ///
-    /// let builder = RadialGradientBuilder::default().stops(vec![]);
+    /// let builder = Gradient::radial_builder().stops(vec![]);
     /// ```
     pub fn stops(mut self, stops: Vec<Stop>) -> Self {
         self.stops = stops;
@@ -326,9 +335,9 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{RadialGradientBuilder, Stop};
+    /// use typed::{Gradient, Ratio, Stop, color};
     ///
-    /// let builder = RadialGradientBuilder::default().stop(Stop::new(0.0, 0.0));
+    /// let builder = Gradient::radial_builder().stop(Stop::new(color::BLACK, Ratio::new(0.0)));
     /// ```
     pub fn stop(mut self, stop: Stop) -> Self {
         self.stops.push(stop);
@@ -340,7 +349,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typed::{Center, Gradient, Ratio};
     ///
     /// let builder = Gradient::radial_builder().center(Center::new(Ratio::new(0.5), Ratio::new(0.5)));
     /// ```
@@ -354,7 +363,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typed::{Gradient, Ratio};
     ///
     /// let builder = Gradient::radial_builder().radius(Ratio::new(1.0));
     /// ```
@@ -368,7 +377,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typed::{Center, Gradient, Ratio};
     ///
     /// let builder =
     ///     Gradient::radial_builder().focal_center(Center::new(Ratio::new(0.5), Ratio::new(0.5)));
@@ -383,7 +392,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typed::{Gradient, Ratio};
     ///
     /// let builder = Gradient::radial_builder().focal_radius(Ratio::new(0.5));
     /// ```
@@ -397,7 +406,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typed::{ColorSpace, Gradient};
     ///
     /// let builder = Gradient::radial_builder().space(ColorSpace::Rgb);
     /// ```
@@ -414,13 +423,16 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Center, RadialGradientBuilder, Ratio, Stop};
+    /// use typed::{Center, Gradient, Ratio, Stop, color};
     ///
-    /// let gradient = RadialGradientBuilder::default()
-    ///     .stops(vec![])
-    ///     .center(Center::new(0.5, 0.5))
+    /// let gradient = Gradient::radial_builder()
+    ///     .stops(vec![
+    ///         Stop::new(color::BLACK, Ratio::new(0.0)),
+    ///         Stop::new(color::WHITE, Ratio::new(1.0)),
+    ///     ])
+    ///     .center(Center::new(Ratio::new(0.5), Ratio::new(0.5)))
     ///     .radius(Ratio::new(1.0))
-    ///     .focal_center(Center::new(0.5, 0.5))
+    ///     .focal_center(Center::new(Ratio::new(0.5), Ratio::new(0.5)))
     ///     .focal_radius(Ratio::new(0.5))
     ///     .build()
     ///     .unwrap();
@@ -487,9 +499,9 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{ConicGradientBuilder, Stop};
+    /// use typed::{Gradient, Stop};
     ///
-    /// let builder = ConicGradientBuilder::default().stops(vec![]);
+    /// let builder = Gradient::conic_builder().stops(vec![]);
     /// ```
     pub fn stops(mut self, stops: Vec<Stop>) -> Self {
         self.stops = stops;
@@ -501,9 +513,9 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{ConicGradientBuilder, Ratio, Stop};
+    /// use typed::{Gradient, Ratio, Stop, color};
     ///
-    /// let builder = ConicGradientBuilder::default().stop(Stop::new(Ratio::new(0.0), Ratio::new(0.0)));
+    /// let builder = Gradient::conic_builder().stop(Stop::new(color::BLACK, Ratio::new(0.0)));
     /// ```
     pub fn stop(mut self, stop: Stop) -> Self {
         self.stops.push(stop);
@@ -560,12 +572,15 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, Center, ConicGradientBuilder, Stop};
+    /// use typed::{Angle, Center, Gradient, Ratio, Stop, color};
     ///
-    /// let gradient = ConicGradientBuilder::default()
-    ///     .stops(vec![])
+    /// let gradient = Gradient::conic_builder()
+    ///     .stops(vec![
+    ///         Stop::new(color::BLACK, Ratio::new(0.0)),
+    ///         Stop::new(color::WHITE, Ratio::new(1.0)),
+    ///     ])
     ///     .angle(Angle::new(45.0))
-    ///     .center(Center::new(0.5, 0.5))
+    ///     .center(Center::new(Ratio::new(0.5), Ratio::new(0.5)))
     ///     .build()
     ///     .unwrap();
     /// ```
