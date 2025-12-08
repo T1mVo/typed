@@ -23,12 +23,12 @@ struct Custom {
 }
 
 #[wasm_func]
-fn custom_fn(arg: &[u8]) -> Result<(), String> {
+fn custom_fn(arg: &[u8]) -> Result<Vec<u8>, String> {
     let custom = Custom::from_bytes(arg)?;
 
     // ...
 
-    Ok(())
+    Ok(vec![])
 }
 ```
 
