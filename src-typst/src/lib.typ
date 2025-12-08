@@ -1,1 +1,1 @@
-#import "cbor/cbor.typ": encode
+#import "cbor/cbor.typ"

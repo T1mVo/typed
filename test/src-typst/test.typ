@@ -20,7 +20,7 @@
   "version": version(0, 1, 1),
 )
 
-#let encoded = typed.encode(test)
+#let encoded = typed.cbor.encode(test)
 //#cbor(encoded)
 #let string = typed-test.test(encoded)
 

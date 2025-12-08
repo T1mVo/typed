@@ -1,0 +1,7 @@
+@default:
+    just --list
+    
+@example:
+    cargo build --release --target wasm32-unknown-unknown
+    cp target/wasm32-unknown-unknown/release/typed_example.wasm src-typst/custom_plugin.wasm
+    typst compile --root .. src-typst/example.typ

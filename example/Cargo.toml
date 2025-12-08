@@ -1,0 +1,16 @@
+[package]
+name = "typed-example"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+lto = "fat"
+strip = true
+
+[dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
+typed = { path = ".." }
+wasm-minimal-protocol = "0.1.0"
