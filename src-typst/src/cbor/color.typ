@@ -8,7 +8,7 @@
   assert(type(alpha) == std.ratio, message: "color.luma: alpha must be of type ratio")
   
   (
-    "typed-type": "luma",
+    "typed-type": "color-luma",
     "lightness": lightness,
     "alpha": alpha,
   )
@@ -28,7 +28,7 @@
   assert(type(alpha) == std.ratio, message: "color.oklab: alpha must be of type ratio")
   
   (
-    "typed-type": "oklab",
+    "typed-type": "color-oklab",
     "lightness": lightness,
     "a": a,
     "b": b,
@@ -50,7 +50,7 @@
   assert(type(alpha) == std.ratio, message: "color.oklch: alpha must be of type ratio")
   
   (
-    "typed-type": "oklch",
+    "typed-type": "color-oklch",
     "lightness": lightness,
     "chroma": chroma,
     "hue": hue,
@@ -72,7 +72,7 @@
   assert(type(alpha) == std.ratio, message: "color.linear-rgb: alpha must be of type ratio")
   
   (
-    "typed-type": "linear-rgb",
+    "typed-type": "color-linear-rgb",
     "r": r,
     "g": g,
     "b": b,
@@ -94,7 +94,7 @@
   assert(type(alpha) == std.ratio, message: "color.rgb: alpha must be of type ratio")
   
   (
-    "typed-type": "rgb",
+    "typed-type": "color-rgb",
     "r": r,
     "g": g,
     "b": b,
@@ -116,7 +116,7 @@
   assert(type(key) == std.ratio, message: "color.cmyk: key must be of type ratio")
   
   (
-    "typed-type": "cmyk",
+    "typed-type": "color-cmyk",
     "cyan": cyan,
     "magenta": magenta,
     "yellow": yellow,
@@ -138,7 +138,7 @@
   assert(type(alpha) == std.ratio, message: "color.hsl: alpha must be of type ratio")
   
   (
-    "typed-type": "hsl",
+    "typed-type": "color-hsl",
     "hue": hue,
     "saturation": saturation,
     "lightness": lightness,
@@ -160,7 +160,7 @@
   assert(type(alpha) == std.ratio, message: "color.hsv: alpha must be of type ratio")
   
   (
-    "typed-type": "hsv",
+    "typed-type": "color-hsv",
     "hue": hue,
     "saturation": saturation,
     "value": value,

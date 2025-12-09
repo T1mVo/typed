@@ -383,23 +383,31 @@ impl Hsv {
 
 /// Represents a color in various color spaces.
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
-#[serde(tag = "typed-type", rename_all = "kebab-case")]
+#[serde(tag = "typed-type")]
 pub enum Color {
     /// A grayscale color with lightness and alpha (transparency).
+    #[serde(rename = "color-luma")]
     Luma(Luma),
     /// A color in the OKLab color space.
+    #[serde(rename = "color-oklab")]
     Oklab(Oklab),
     /// A color in the OKLCH color space.
+    #[serde(rename = "color-oklch")]
     Oklch(Oklch),
     /// A color in the linear RGB color space.
+    #[serde(rename = "color-linear-rgb")]
     LinearRgb(LinearRgb),
     /// A color in the standard RGB color space.
+    #[serde(rename = "color-rgb")]
     Rgb(Rgb),
     /// A color in the CMYK color space.
+    #[serde(rename = "color-cmyk")]
     Cmyk(Cmyk),
     /// A color in the HSL (Hue, Saturation, Lightness) color space.
+    #[serde(rename = "color-hsl")]
     Hsl(Hsl),
     /// A color in the HSV (Hue, Saturation, Value) color space.
+    #[serde(rename = "color-hsv")]
     Hsv(Hsv),
 }
 
