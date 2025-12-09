@@ -11,7 +11,7 @@ use crate::{Angle, Center, Ratio, Stop};
 ///
 /// let linear_gradient = Gradient::linear(vec![], Angle::new(45.0), ColorSpace::Oklab);
 /// ```
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(
     tag = "typed-type",
     rename_all = "kebab-case",
