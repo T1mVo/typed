@@ -1,5 +1,6 @@
 pub use angle::Angle;
 pub use center::Center;
+pub use ciborium::Value;
 pub use color::{Cmyk, Color, ColorGradient, Hsl, Hsv, LinearRgb, Luma, Oklab, Oklch, Rgb};
 pub use datetime::{DateTime, DateTimeBuilder};
 pub use duration::{Duration, DurationBuilder};
