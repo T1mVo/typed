@@ -2,7 +2,7 @@
 
 use serde::Deserialize;
 use typed::{
-    Angle, Center, Color, ColorGradient, DateTime, Duration, FromBytes as _, Gradient, Length,
+    Angle, Center, Color, ColorGradient, Content, DateTime, Duration, FromBytes as _, Gradient, Length,
     LengthRadius, Radius, Ratio, Stop, Type, Version,
 };
 use wasm_minimal_protocol::*;
@@ -15,6 +15,7 @@ struct Test {
     angle: Angle,
     color: Color,
     color_gradient: ColorGradient,
+    content: Content,
     center: Center,
     datetime: DateTime,
     duration: Duration,

@@ -6,6 +6,7 @@
   "angle": 90deg,
   "color": color.linear-rgb(color.red),
   "color-gradient": color.green,
+  "content": [This is content],
   "center": ("x": 75%, "y": 25%),
   "datetime": datetime.today(),
   "duration": duration(days: 3, hours: 12),
