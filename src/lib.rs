@@ -2,6 +2,7 @@ pub use angle::Angle;
 pub use center::Center;
 pub use ciborium::Value;
 pub use color::{Cmyk, Color, ColorGradient, Hsl, Hsv, LinearRgb, Luma, Oklab, Oklch, Rgb};
+pub use content::Content;
 pub use datetime::{DateTime, DateTimeBuilder};
 pub use duration::{Duration, DurationBuilder};
 pub use gradient::{
@@ -18,6 +19,7 @@ pub use version::Version;
 mod angle;
 mod center;
 pub mod color;
+mod content;
 mod datetime;
 mod duration;
 mod gradient;
