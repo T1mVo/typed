@@ -77,8 +77,8 @@ fn custom_fn(arg: &[u8]) -> Result<Vec<u8>, String> {
 
 ## Missing features
 
-- Color conversion
-- Dynamic Value type
-- Decoding
+- Color conversion in Rust
+- Dynamic Value type that includes all Typst types
+- Decoding from plugin
 - Static Gradient defaults
-- Support all types
+- Support for all types
