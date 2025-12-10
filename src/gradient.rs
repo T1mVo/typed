@@ -12,17 +12,15 @@ use crate::{Angle, Center, Ratio, Stop};
 /// let linear_gradient = Gradient::linear(vec![], Angle::new(45.0), ColorSpace::Oklab);
 /// ```
 #[derive(Serialize, Deserialize, Clone, Debug)]
-#[serde(
-    tag = "typed-type",
-    rename_all = "kebab-case",
-    rename_all_fields = "kebab-case"
-)]
+#[serde(tag = "typed-type", rename_all_fields = "kebab-case")]
 pub enum Gradient {
+    #[serde(rename = "gradient-linear")]
     Linear {
         stops: Vec<Stop>,
         angle: Angle,
         space: ColorSpace,
     },
+    #[serde(rename = "gradient-radial")]
     Radial {
         stops: Vec<Stop>,
         center: Center,
@@ -31,6 +29,7 @@ pub enum Gradient {
         focal_radius: Ratio,
         space: ColorSpace,
     },
+    #[serde(rename = "gradient-conic")]
     Conic {
         stops: Vec<Stop>,
         angle: Angle,
