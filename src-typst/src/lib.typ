@@ -1,1 +1,1 @@
-#import "cbor/cbor.typ"
+#import "cbor/lib.typ" as cbor

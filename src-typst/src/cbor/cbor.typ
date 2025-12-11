@@ -1,5 +1,4 @@
 #import "angle.typ"
-#import "center.typ"
 #import "color.typ"
 #import "datetime.typ"
 #import "duration.typ"
@@ -58,6 +57,10 @@
   result
 }
 
+/// Encode content into CBOR format.
+///
+/// - content (any): The content to encode.
+/// -> bytes
 #let encode(content) = {
   cbor.encode(encode-inner(content))
 }
