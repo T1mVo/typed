@@ -6,7 +6,15 @@ This library provides a CBOR encoder with extended [support](#supported-types) f
 
 ## Usage
 
+**Note:** The versions used in Typst and Rust **MUST** match exactly.
+
 **Rust:**
+
+Add `typed` to your Rust project like this:
+
+```sh
+cargo add typed --git https://github.com/T1mVo/typed.git --tag v0.1.0
+```
 
 ```rs
 use serde::Deserialize;
