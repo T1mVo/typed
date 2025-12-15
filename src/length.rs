@@ -9,7 +9,7 @@ const TYPE_NAME: &str = "length";
 /// # Examples
 ///
 /// ```
-/// use typed::Length;
+/// use typwire::Length;
 ///
 /// let length = Length::new(72.0);
 /// assert_eq!(length.pt(), 72.0);
@@ -31,7 +31,7 @@ impl Length {
     /// # Examples
     ///
     /// ```
-    /// use typed::Length;
+    /// use typwire::Length;
     ///
     /// let length = Length::new(72.0);
     /// assert_eq!(length.pt(), 72.0);
@@ -45,7 +45,7 @@ impl Length {
     /// # Examples
     ///
     /// ```
-    /// use typed::Length;
+    /// use typwire::Length;
     ///
     /// let length = Length::new(72.0);
     /// assert_eq!(length.pt(), 72.0);
@@ -59,7 +59,7 @@ impl Length {
     /// # Examples
     ///
     /// ```
-    /// use typed::Length;
+    /// use typwire::Length;
     ///
     /// let length = Length::new(72.0);
     /// assert_eq!(length.mm(), 25.4);
@@ -73,7 +73,7 @@ impl Length {
     /// # Examples
     ///
     /// ```
-    /// use typed::Length;
+    /// use typwire::Length;
     ///
     /// let length = Length::new(720.0);
     /// assert_eq!(length.cm(), 25.4);
@@ -87,7 +87,7 @@ impl Length {
     /// # Examples
     ///
     /// ```
-    /// use typed::Length;
+    /// use typwire::Length;
     ///
     /// let length = Length::new(72.0);
     /// assert_eq!(length.inches(), 1.0);
@@ -100,7 +100,7 @@ impl Length {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 struct LengthCbor {
-    typed_type: String,
+    typwire_type: String,
     points: f64,
 }
 
@@ -108,7 +108,7 @@ struct LengthCbor {
 impl From<Length> for LengthCbor {
     fn from(value: Length) -> Self {
         Self {
-            typed_type: TYPE_NAME.to_string(),
+            typwire_type: TYPE_NAME.to_string(),
             points: value.points,
         }
     }
@@ -119,10 +119,10 @@ impl TryFrom<LengthCbor> for Length {
     type Error = String;
 
     fn try_from(value: LengthCbor) -> Result<Self, Self::Error> {
-        if value.typed_type != TYPE_NAME {
+        if value.typwire_type != TYPE_NAME {
             return Err(format!(
-                "Invalid typed-type for Length: {}",
-                value.typed_type
+                "Invalid typwire-type for Length: {}",
+                value.typwire_type
             ));
         }
 
@@ -137,7 +137,7 @@ impl TryFrom<LengthCbor> for Length {
 /// # Examples
 ///
 /// ```
-/// use typed::{Length, LengthRadius};
+/// use typwire::{Length, LengthRadius};
 ///
 /// let lr = LengthRadius::Length(Length::new(72.0));
 /// ```

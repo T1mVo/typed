@@ -1,7 +1,7 @@
 #![allow(unused)]
 
 use serde::Deserialize;
-use typed::{
+use typwire::{
     Angle, Center, Color, ColorGradient, Content, DateTime, Duration, FromBytes as _, Gradient, Length,
     LengthRadius, Radius, Ratio, Stop, Type, Version,
 };

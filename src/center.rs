@@ -20,7 +20,7 @@ impl Center {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Center, Ratio};
+    /// use typwire::{Center, Ratio};
     ///
     /// let center = Center::new(Ratio::new(0.5), Ratio::new(0.5));
     /// assert_eq!(center.x, Ratio::new(0.5));

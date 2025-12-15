@@ -132,7 +132,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "typed"
+name = "typwire"
 version = "0.1.0"
 dependencies = [
  "ciborium",

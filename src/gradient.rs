@@ -7,12 +7,12 @@ use crate::{Angle, Center, Ratio, Stop};
 ///
 /// # Examples
 /// ```
-/// use typed::{Angle, Center, ColorSpace, Gradient, Ratio, Stop};
+/// use typwire::{Angle, Center, ColorSpace, Gradient, Ratio, Stop};
 ///
 /// let linear_gradient = Gradient::linear(vec![], Angle::new(45.0), ColorSpace::Oklab);
 /// ```
 #[derive(Serialize, Deserialize, Clone, Debug)]
-#[serde(tag = "typed-type", rename_all_fields = "kebab-case")]
+#[serde(tag = "typwire-type", rename_all_fields = "kebab-case")]
 pub enum Gradient {
     #[serde(rename = "gradient-linear")]
     Linear {
@@ -43,7 +43,7 @@ impl Gradient {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, ColorSpace, Gradient, Stop};
+    /// use typwire::{Angle, ColorSpace, Gradient, Stop};
     ///
     /// let gradient = Gradient::linear(vec![], Angle::new(45.0), ColorSpace::Oklab);
     /// ```
@@ -59,7 +59,7 @@ impl Gradient {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typwire::Gradient;
     ///
     /// let builder = Gradient::linear_builder();
     /// ```
@@ -75,7 +75,7 @@ impl Gradient {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Center, ColorSpace, Gradient, Ratio, Stop};
+    /// use typwire::{Center, ColorSpace, Gradient, Ratio, Stop};
     ///
     /// let gradient = Gradient::radial(
     ///     vec![],
@@ -108,7 +108,7 @@ impl Gradient {
     ///
     /// # Examples
     /// ```
-    /// use typed::Gradient;
+    /// use typwire::Gradient;
     ///
     /// let builder = Gradient::radial_builder();
     /// ```
@@ -127,7 +127,7 @@ impl Gradient {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, Center, ColorSpace, Gradient, Ratio, Stop};
+    /// use typwire::{Angle, Center, ColorSpace, Gradient, Ratio, Stop};
     ///
     /// let gradient = Gradient::conic(
     ///     vec![],
@@ -149,7 +149,7 @@ impl Gradient {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Center, Gradient, Ratio};
+    /// use typwire::{Center, Gradient, Ratio};
     ///
     /// let builder = Gradient::conic_builder();
     /// ```
@@ -181,7 +181,7 @@ pub enum ColorSpace {
 ///
 /// # Examples
 /// ```
-/// use typed::{Angle, ColorSpace, Gradient, Ratio, Stop, color};
+/// use typwire::{Angle, ColorSpace, Gradient, Ratio, Stop, color};
 ///
 /// let gradient = Gradient::linear_builder()
 ///     .stops(vec![
@@ -203,7 +203,7 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Gradient, Stop};
+    /// use typwire::{Gradient, Stop};
     ///
     /// let builder = Gradient::linear_builder().stops(vec![]);
     /// ```
@@ -217,7 +217,7 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Gradient, Ratio, Stop, color};
+    /// use typwire::{Gradient, Ratio, Stop, color};
     ///
     /// let builder = Gradient::linear_builder().stop(Stop::new(color::BLACK, Ratio::new(0.0)));
     /// ```
@@ -231,7 +231,7 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, Gradient};
+    /// use typwire::{Angle, Gradient};
     ///
     /// let builder = Gradient::linear_builder().angle(Angle::new(45.0));
     /// ```
@@ -245,7 +245,7 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{ColorSpace, Gradient};
+    /// use typwire::{ColorSpace, Gradient};
     ///
     /// let builder = Gradient::linear_builder().space(ColorSpace::Rgb);
     /// ```
@@ -262,7 +262,7 @@ impl LinearGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, Gradient, Ratio, Stop, color};
+    /// use typwire::{Angle, Gradient, Ratio, Stop, color};
     ///
     /// let gradient = Gradient::linear_builder()
     ///     .stops(vec![
@@ -292,7 +292,7 @@ impl LinearGradientBuilder {
 ///
 /// # Examples
 /// ```
-/// use typed::{Center, Gradient, Ratio, Stop, color};
+/// use typwire::{Center, Gradient, Ratio, Stop, color};
 ///
 /// let gradient = Gradient::radial_builder()
 ///     .stops(vec![
@@ -320,7 +320,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Gradient, Stop};
+    /// use typwire::{Gradient, Stop};
     ///
     /// let builder = Gradient::radial_builder().stops(vec![]);
     /// ```
@@ -334,7 +334,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Gradient, Ratio, Stop, color};
+    /// use typwire::{Gradient, Ratio, Stop, color};
     ///
     /// let builder = Gradient::radial_builder().stop(Stop::new(color::BLACK, Ratio::new(0.0)));
     /// ```
@@ -348,7 +348,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Center, Gradient, Ratio};
+    /// use typwire::{Center, Gradient, Ratio};
     ///
     /// let builder = Gradient::radial_builder().center(Center::new(Ratio::new(0.5), Ratio::new(0.5)));
     /// ```
@@ -362,7 +362,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Gradient, Ratio};
+    /// use typwire::{Gradient, Ratio};
     ///
     /// let builder = Gradient::radial_builder().radius(Ratio::new(1.0));
     /// ```
@@ -376,7 +376,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Center, Gradient, Ratio};
+    /// use typwire::{Center, Gradient, Ratio};
     ///
     /// let builder =
     ///     Gradient::radial_builder().focal_center(Center::new(Ratio::new(0.5), Ratio::new(0.5)));
@@ -391,7 +391,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Gradient, Ratio};
+    /// use typwire::{Gradient, Ratio};
     ///
     /// let builder = Gradient::radial_builder().focal_radius(Ratio::new(0.5));
     /// ```
@@ -405,7 +405,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{ColorSpace, Gradient};
+    /// use typwire::{ColorSpace, Gradient};
     ///
     /// let builder = Gradient::radial_builder().space(ColorSpace::Rgb);
     /// ```
@@ -422,7 +422,7 @@ impl RadialGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Center, Gradient, Ratio, Stop, color};
+    /// use typwire::{Center, Gradient, Ratio, Stop, color};
     ///
     /// let gradient = Gradient::radial_builder()
     ///     .stops(vec![
@@ -474,7 +474,7 @@ impl RadialGradientBuilder {
 ///
 /// # Examples
 /// ```
-/// use typed::{Angle, Center, Gradient, Ratio, Stop, color};
+/// use typwire::{Angle, Center, Gradient, Ratio, Stop, color};
 ///
 /// let gradient = Gradient::conic_builder()
 ///     .stops(vec![
@@ -498,7 +498,7 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Gradient, Stop};
+    /// use typwire::{Gradient, Stop};
     ///
     /// let builder = Gradient::conic_builder().stops(vec![]);
     /// ```
@@ -512,7 +512,7 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Gradient, Ratio, Stop, color};
+    /// use typwire::{Gradient, Ratio, Stop, color};
     ///
     /// let builder = Gradient::conic_builder().stop(Stop::new(color::BLACK, Ratio::new(0.0)));
     /// ```
@@ -526,7 +526,7 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, Gradient};
+    /// use typwire::{Angle, Gradient};
     ///
     /// let builder = Gradient::conic_builder().angle(Angle::new(45.0));
     /// ```
@@ -540,7 +540,7 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Center, Gradient, Ratio};
+    /// use typwire::{Center, Gradient, Ratio};
     ///
     /// let builder = Gradient::conic_builder().center(Center::new(Ratio::new(0.5), Ratio::new(0.5)));
     /// ```
@@ -554,7 +554,7 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{ColorSpace, Gradient};
+    /// use typwire::{ColorSpace, Gradient};
     ///
     /// let builder = Gradient::conic_builder().space(ColorSpace::Rgb);
     /// ```
@@ -571,7 +571,7 @@ impl ConicGradientBuilder {
     ///
     /// # Examples
     /// ```
-    /// use typed::{Angle, Center, Gradient, Ratio, Stop, color};
+    /// use typwire::{Angle, Center, Gradient, Ratio, Stop, color};
     ///
     /// let gradient = Gradient::conic_builder()
     ///     .stops(vec![

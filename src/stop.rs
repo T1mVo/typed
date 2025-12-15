@@ -20,7 +20,7 @@ impl Stop {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Ratio, Stop, color};
+    /// use typwire::{Ratio, Stop, color};
     ///
     /// let stop = Stop::new(color::BLACK, Ratio::new(0.5));
     /// assert_eq!(stop.color, color::BLACK);

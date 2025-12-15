@@ -19,7 +19,7 @@ impl Angle {
     /// # Examples
     ///
     /// ```
-    /// use typed::Angle;
+    /// use typwire::Angle;
     ///
     /// let angle = Angle::new(1.0);
     /// assert_eq!(angle.rad(), 1.0);
@@ -33,7 +33,7 @@ impl Angle {
     /// # Examples
     ///
     /// ```
-    /// use typed::Angle;
+    /// use typwire::Angle;
     ///
     /// let angle = Angle::new(1.0);
     /// assert_eq!(angle.rad(), 1.0);
@@ -47,7 +47,7 @@ impl Angle {
     /// # Examples
     ///
     /// ```
-    /// use typed::Angle;
+    /// use typwire::Angle;
     ///
     /// let angle = Angle::new(std::f64::consts::PI);
     /// assert_eq!(angle.deg(), 180.0);
@@ -60,7 +60,7 @@ impl Angle {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 struct AngleCbor {
-    typed_type: String,
+    typwire_type: String,
     radians: f64,
 }
 
@@ -68,7 +68,7 @@ struct AngleCbor {
 impl From<Angle> for AngleCbor {
     fn from(angle: Angle) -> Self {
         AngleCbor {
-            typed_type: TYPE_NAME.to_string(),
+            typwire_type: TYPE_NAME.to_string(),
             radians: angle.radians,
         }
     }
@@ -79,10 +79,10 @@ impl TryFrom<AngleCbor> for Angle {
     type Error = String;
 
     fn try_from(value: AngleCbor) -> Result<Self, Self::Error> {
-        if value.typed_type != TYPE_NAME {
+        if value.typwire_type != TYPE_NAME {
             return Err(format!(
-                "Invalid typed-type for Angle: {}",
-                value.typed_type
+                "Invalid typwire-type for Angle: {}",
+                value.typwire_type
             ));
         }
 

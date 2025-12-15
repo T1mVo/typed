@@ -11,7 +11,7 @@ const DAYS_IN_WEEK: f64 = 7.0;
 /// # Examples
 ///
 /// ```
-/// use typed::Duration;
+/// use typwire::Duration;
 ///
 /// let d = Duration::new(3600.0);
 /// assert_eq!(d.seconds(), 3600.0);
@@ -33,7 +33,7 @@ impl Duration {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::new(120.0);
     /// assert_eq!(d.seconds(), 120.0);
@@ -47,7 +47,7 @@ impl Duration {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::builder().seconds(30.0).minutes(1.0).build();
     /// assert_eq!(d.seconds(), 90.0);
@@ -67,7 +67,7 @@ impl Duration {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::new(120.0);
     /// assert_eq!(d.seconds(), 120.0);
@@ -81,7 +81,7 @@ impl Duration {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::new(120.0);
     /// assert_eq!(d.minutes(), 2.0);
@@ -95,7 +95,7 @@ impl Duration {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::new(3600.0);
     /// assert_eq!(d.hours(), 1.0);
@@ -109,7 +109,7 @@ impl Duration {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::new(86400.0);
     /// assert_eq!(d.days(), 1.0);
@@ -123,7 +123,7 @@ impl Duration {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::new(604800.0);
     /// assert_eq!(d.weeks(), 1.0);
@@ -147,7 +147,7 @@ impl DurationBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::builder().seconds(30.0).build();
     /// assert_eq!(d.seconds(), 30.0);
@@ -163,7 +163,7 @@ impl DurationBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::builder().minutes(2.0).build();
     /// assert_eq!(d.minutes(), 2.0);
@@ -179,7 +179,7 @@ impl DurationBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::builder().hours(1.0).build();
     /// assert_eq!(d.hours(), 1.0);
@@ -195,7 +195,7 @@ impl DurationBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::builder().days(1.0).build();
     /// assert_eq!(d.days(), 1.0);
@@ -211,7 +211,7 @@ impl DurationBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::builder().weeks(1.0).build();
     /// assert_eq!(d.weeks(), 1.0);
@@ -227,7 +227,7 @@ impl DurationBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::Duration;
+    /// use typwire::Duration;
     ///
     /// let d = Duration::builder()
     ///     .hours(1.0)
@@ -250,7 +250,7 @@ impl DurationBuilder {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 struct DurationCbor {
-    typed_type: String,
+    typwire_type: String,
     seconds: f64,
 }
 
@@ -258,7 +258,7 @@ struct DurationCbor {
 impl From<Duration> for DurationCbor {
     fn from(value: Duration) -> Self {
         Self {
-            typed_type: TYPE_NAME.to_string(),
+            typwire_type: TYPE_NAME.to_string(),
             seconds: value.seconds,
         }
     }
@@ -269,10 +269,10 @@ impl TryFrom<DurationCbor> for Duration {
     type Error = String;
 
     fn try_from(value: DurationCbor) -> Result<Self, Self::Error> {
-        if value.typed_type != TYPE_NAME {
+        if value.typwire_type != TYPE_NAME {
             return Err(format!(
-                "Invalid typed-type for Duration: {}",
-                value.typed_type
+                "Invalid typwire-type for Duration: {}",
+                value.typwire_type
             ));
         }
 

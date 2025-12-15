@@ -1,7 +1,7 @@
 #![allow(unused)]
 
 use serde::Deserialize;
-use typed::{Angle, Color, DateTime, FromBytes as _};
+use typwire::{Angle, Color, DateTime, FromBytes as _};
 use wasm_minimal_protocol::*;
 
 initiate_protocol!();

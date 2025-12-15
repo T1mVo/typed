@@ -19,7 +19,7 @@ impl Ratio {
     /// # Examples
     ///
     /// ```
-    /// use typed::Ratio;
+    /// use typwire::Ratio;
     ///
     /// let ratio = Ratio::new(0.5);
     /// assert_eq!(ratio.ratio, 0.5);
@@ -33,7 +33,7 @@ impl Ratio {
     /// # Examples
     ///
     /// ```
-    /// use typed::Ratio;
+    /// use typwire::Ratio;
     ///
     /// let ratio = Ratio::new(0.75);
     /// assert_eq!(ratio.to_percentage(), "75%");
@@ -46,7 +46,7 @@ impl Ratio {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 struct RatioCbor {
-    typed_type: String,
+    typwire_type: String,
     ratio: f64,
 }
 
@@ -54,7 +54,7 @@ struct RatioCbor {
 impl From<Ratio> for RatioCbor {
     fn from(value: Ratio) -> Self {
         RatioCbor {
-            typed_type: TYPE_NAME.to_string(),
+            typwire_type: TYPE_NAME.to_string(),
             ratio: value.ratio,
         }
     }
@@ -65,10 +65,10 @@ impl TryFrom<RatioCbor> for Ratio {
     type Error = String;
 
     fn try_from(value: RatioCbor) -> Result<Self, Self::Error> {
-        if value.typed_type != TYPE_NAME {
+        if value.typwire_type != TYPE_NAME {
             return Err(format!(
-                "Invalid typed-type for Ratio: {}",
-                value.typed_type
+                "Invalid typwire-type for Ratio: {}",
+                value.typwire_type
             ));
         }
 

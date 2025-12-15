@@ -1,5 +1,5 @@
-// #import "@preview/typed:0.1.0"
-#import "../../src-typst/src/lib.typ" as typed
+// #import "@preview/typwire:0.1.0"
+#import "../../src-typst/src/lib.typ" as typwire
 
 #let custom-plugin = plugin("custom_plugin.wasm")
 
@@ -9,7 +9,7 @@
     "datetime": datetime.today(),
 )
 
-#let encoded = typed.cbor.encode(custom)
+#let encoded = typwire.cbor.encode(custom)
 
 #let result = custom-plugin.custom_fn(encoded)
 

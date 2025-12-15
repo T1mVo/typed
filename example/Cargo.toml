@@ -1,5 +1,5 @@
 [package]
-name = "typed-example"
+name = "typwire-example"
 version = "0.1.0"
 edition = "2024"
 
@@ -8,5 +8,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
-typed = { path = ".." }
+typwire = { path = ".." }
 wasm-minimal-protocol = "0.1.0"

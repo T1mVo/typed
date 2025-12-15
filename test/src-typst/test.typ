@@ -1,6 +1,6 @@
-#import "../../src-typst/src/lib.typ" as typed
+#import "../../src-typst/src/lib.typ" as typwire
 
-#let typed-test = plugin("typed_test.wasm")
+#let typwire-test = plugin("typwire_test.wasm")
 
 #let test = (
   "angle": 90deg,
@@ -21,8 +21,8 @@
   "version": version(0, 1, 1),
 )
 
-#let encoded = typed.cbor.encode(test)
+#let encoded = typwire.cbor.encode(test)
 //#cbor(encoded)
-#let string = typed-test.test(encoded)
+#let string = typwire-test.test(encoded)
 
 #str(string)

@@ -19,7 +19,7 @@ impl Type {
     /// # Examples
     ///
     /// ```
-    /// use typed::Type;
+    /// use typwire::Type;
     ///
     /// let custom_type = Type::new(String::from("CustomType"));
     /// assert_eq!(custom_type.ty, "CustomType");
@@ -32,7 +32,7 @@ impl Type {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 struct TypeCbor {
-    typed_type: String,
+    typwire_type: String,
     ty: String,
 }
 
@@ -40,7 +40,7 @@ struct TypeCbor {
 impl From<Type> for TypeCbor {
     fn from(value: Type) -> Self {
         Self {
-            typed_type: TYPE_NAME.to_string(),
+            typwire_type: TYPE_NAME.to_string(),
             ty: value.ty,
         }
     }
@@ -51,8 +51,8 @@ impl TryFrom<TypeCbor> for Type {
     type Error = String;
 
     fn try_from(value: TypeCbor) -> Result<Self, Self::Error> {
-        if value.typed_type != TYPE_NAME {
-            return Err(format!("Invalid typed-type for Type: {}", value.typed_type));
+        if value.typwire_type != TYPE_NAME {
+            return Err(format!("Invalid typwire-type for Type: {}", value.typwire_type));
         }
 
         Ok(Self::new(value.ty))

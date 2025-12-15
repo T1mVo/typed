@@ -28,7 +28,7 @@ impl Version {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 struct VersionCbor {
-    typed_type: String,
+    typwire_type: String,
     major: i64,
     minor: i64,
     patch: i64,
@@ -40,7 +40,7 @@ struct VersionCbor {
 impl From<Version> for VersionCbor {
     fn from(value: Version) -> Self {
         Self {
-            typed_type: TYPE_NAME.to_string(),
+            typwire_type: TYPE_NAME.to_string(),
             major: value.major,
             minor: value.minor,
             patch: value.patch,
@@ -55,10 +55,10 @@ impl TryFrom<VersionCbor> for Version {
     type Error = String;
 
     fn try_from(value: VersionCbor) -> Result<Self, Self::Error> {
-        if value.typed_type != TYPE_NAME {
+        if value.typwire_type != TYPE_NAME {
             return Err(format!(
-                "Invalid typed-type for Version: {}",
-                value.typed_type
+                "Invalid typwire-type for Version: {}",
+                value.typwire_type
             ));
         }
 

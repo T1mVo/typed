@@ -7,7 +7,7 @@ const TYPE_NAME: &str = "datetime";
 /// # Examples
 ///
 /// ```
-/// use typed::DateTime;
+/// use typwire::DateTime;
 ///
 /// let dt = DateTime::builder().year(2025).month(12).day(3).build();
 /// assert_eq!(dt.year, Some(2025));
@@ -30,7 +30,7 @@ impl DateTime {
     /// # Examples
     ///
     /// ```
-    /// use typed::DateTime;
+    /// use typwire::DateTime;
     ///
     /// let dt = DateTime::builder().year(2025).build();
     /// assert_eq!(dt.year, Some(2025));
@@ -62,7 +62,7 @@ impl DateTimeBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::DateTime;
+    /// use typwire::DateTime;
     ///
     /// let dt = DateTime::builder().year(2025).build();
     /// assert_eq!(dt.year, Some(2025));
@@ -78,7 +78,7 @@ impl DateTimeBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::DateTime;
+    /// use typwire::DateTime;
     ///
     /// let dt = DateTime::builder().month(12).build();
     /// assert_eq!(dt.month, Some(12));
@@ -94,7 +94,7 @@ impl DateTimeBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::DateTime;
+    /// use typwire::DateTime;
     ///
     /// let dt = DateTime::builder().day(3).build();
     /// assert_eq!(dt.day, Some(3));
@@ -110,7 +110,7 @@ impl DateTimeBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::DateTime;
+    /// use typwire::DateTime;
     ///
     /// let dt = DateTime::builder().hour(14).build();
     /// assert_eq!(dt.hour, Some(14));
@@ -126,7 +126,7 @@ impl DateTimeBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::DateTime;
+    /// use typwire::DateTime;
     ///
     /// let dt = DateTime::builder().minute(30).build();
     /// assert_eq!(dt.minute, Some(30));
@@ -142,7 +142,7 @@ impl DateTimeBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::DateTime;
+    /// use typwire::DateTime;
     ///
     /// let dt = DateTime::builder().second(45).build();
     /// assert_eq!(dt.second, Some(45));
@@ -158,7 +158,7 @@ impl DateTimeBuilder {
     /// # Examples
     ///
     /// ```
-    /// use typed::DateTime;
+    /// use typwire::DateTime;
     ///
     /// let dt = DateTime::builder()
     ///     .year(2025)
@@ -186,7 +186,7 @@ impl DateTimeBuilder {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 struct DateTimeCbor {
-    typed_type: String,
+    typwire_type: String,
     year: Option<i64>,
     month: Option<i64>,
     day: Option<i64>,
@@ -199,7 +199,7 @@ struct DateTimeCbor {
 impl From<DateTime> for DateTimeCbor {
     fn from(value: DateTime) -> Self {
         Self {
-            typed_type: TYPE_NAME.to_string(),
+            typwire_type: TYPE_NAME.to_string(),
             year: value.year,
             month: value.month,
             day: value.day,
@@ -215,10 +215,10 @@ impl TryFrom<DateTimeCbor> for DateTime {
     type Error = String;
 
     fn try_from(value: DateTimeCbor) -> Result<Self, Self::Error> {
-        if value.typed_type != TYPE_NAME {
+        if value.typwire_type != TYPE_NAME {
             return Err(format!(
-                "Invalid typed-type for DateTime: {}",
-                value.typed_type
+                "Invalid typwire-type for DateTime: {}",
+                value.typwire_type
             ));
         }
 

@@ -107,7 +107,7 @@ impl Luma {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Luma, Ratio};
+    /// use typwire::{Luma, Ratio};
     ///
     /// let luma = Luma::new(Ratio::new(0.5), Ratio::new(1.0));
     /// assert_eq!(luma.lightness, Ratio::new(0.5));
@@ -137,7 +137,7 @@ impl Oklab {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Oklab, Ratio};
+    /// use typwire::{Oklab, Ratio};
     ///
     /// let o = Oklab::new(
     ///     Ratio::new(0.5),
@@ -176,7 +176,7 @@ impl Oklch {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Angle, Oklch, Ratio};
+    /// use typwire::{Angle, Oklch, Ratio};
     ///
     /// let o = Oklch::new(
     ///     Ratio::new(0.6),
@@ -215,7 +215,7 @@ impl LinearRgb {
     /// # Examples
     ///
     /// ```
-    /// use typed::{LinearRgb, Ratio};
+    /// use typwire::{LinearRgb, Ratio};
     ///
     /// let lr = LinearRgb::new(
     ///     Ratio::new(0.1),
@@ -249,7 +249,7 @@ impl Rgb {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Ratio, Rgb};
+    /// use typwire::{Ratio, Rgb};
     ///
     /// let rgb = Rgb::new(
     ///     Ratio::new(1.0),
@@ -283,7 +283,7 @@ impl Cmyk {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Cmyk, Ratio};
+    /// use typwire::{Cmyk, Ratio};
     ///
     /// let c = Cmyk::new(
     ///     Ratio::new(0.0),
@@ -322,7 +322,7 @@ impl Hsl {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Angle, Hsl, Ratio};
+    /// use typwire::{Angle, Hsl, Ratio};
     ///
     /// let h = Hsl::new(
     ///     Angle::new(0.0),
@@ -361,7 +361,7 @@ impl Hsv {
     /// # Examples
     ///
     /// ```
-    /// use typed::{Angle, Hsv, Ratio};
+    /// use typwire::{Angle, Hsv, Ratio};
     ///
     /// let h = Hsv::new(
     ///     Angle::new(0.0),
@@ -383,7 +383,7 @@ impl Hsv {
 
 /// Represents a color in various color spaces.
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
-#[serde(tag = "typed-type")]
+#[serde(tag = "typwire-type")]
 pub enum Color {
     /// A grayscale color with lightness and alpha (transparency).
     #[serde(rename = "color-luma")]
