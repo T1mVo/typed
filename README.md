@@ -13,7 +13,7 @@ This library provides a CBOR encoder with extended [support](#supported-types) f
 Add `typwire` to your Rust project like this:
 
 ```sh
-cargo add typwire --git https://github.com/T1mVo/typwire.git --tag v0.1.0
+cargo add typwire
 ```
 
 ```rs
